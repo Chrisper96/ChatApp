@@ -1,4 +1,5 @@
 *.iml
+*.class
 .gradle
 /local.properties
 /.idea/caches
@@ -7,9 +8,11 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+.idea/gradle.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
+.gradle/
 local.properties
