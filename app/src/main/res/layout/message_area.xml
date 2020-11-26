@@ -6,6 +6,11 @@
     android:gravity="bottom"
     android:orientation="horizontal">
 
+    <!-- General activity overview
+        // This activity is used to write and send messages and is used in activity_chat.xml
+    -->
+
+    <!-- // This section is used by the user to write their chat message -->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +22,7 @@
         android:maxHeight="80dp"
         />
 
+    <!-- // This section is used as a button by the user to send their chat message -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

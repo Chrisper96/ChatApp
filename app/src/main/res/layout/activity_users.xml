@@ -10,6 +10,10 @@
     tools:context="com.example.androidchat.Users"
     android:orientation="vertical">
 
+    <!-- General activity overview
+        // This activity is used to display the registered users of the app
+    -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +21,7 @@
         android:id="@+id/noUsersText"
         android:visibility="gone"/>
 
+    <!-- // Displays a list of data specified in main java code -->
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

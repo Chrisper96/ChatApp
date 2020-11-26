@@ -11,6 +11,18 @@
     android:orientation="vertical"
     tools:context="com.example.androidchat.Chat">
 
+    <!-- General activity overview
+        // This activity displays the chat messages sent between the users
+        // Also lets the users send messages via the included message_area.cml activity
+     -->
+
+    <!-- Xml tag overview
+        // ScrollView lets the child view inside it have the scroll function
+        // Include lets layout files be used inside another layout
+    -->
+
+
+    <!-- // This section displays the chat messages -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_weight="20"
@@ -25,6 +37,7 @@
         </LinearLayout>
     </ScrollView>
 
+    <!-- // This section includes the message_area layout inside of the current layout -->
     <include
         layout="@layout/message_area"
         android:layout_width="match_parent"

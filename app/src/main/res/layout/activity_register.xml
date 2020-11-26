@@ -11,6 +11,12 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <!-- General activity overview
+        // This activity is used to register a user in the database or navigate to the login page
+    -->
+
+    <!-- // For xml explanation see activity_login.xml -->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

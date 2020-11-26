@@ -21,10 +21,29 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/* General code overview
+*   This file controls the functionality for the activity_login.xml file.
+*
+*   // Login
+*       Together with the activity file, this file holds the functionality for users logins,
+*       that then takes them to the users page with the login button,
+*       but only if the users login credentials be correct.
+*
+*   // Requests
+*       The login credentials entered by the user will be verified,
+*       in the firebase realtime database that has been set up.
+*       This happens via http requests.
+*       The requests are made to a url provided by firebase using it as a REST endpoint.
+*
+*   If the user should click the text to register they will then be shown the register page instead.
+*/
+
 public class Login extends AppCompatActivity {
+    // Control variables for activity elements
     TextView register;
     EditText username, password;
     Button loginButton;
+
     String user, pass;
 
     @Override
@@ -32,11 +51,13 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Registering the control variables with the activity elements
         register = (TextView)findViewById(R.id.register);
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.loginButton);
 
+        // Brings the user to register activity on click
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,9 +65,11 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        // Brings user to users activity if login credentials match a user in the database
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Gets login credentials from the control variables
                 user = username.getText().toString();
                 pass = password.getText().toString();
 
@@ -62,16 +85,18 @@ public class Login extends AppCompatActivity {
                     pd.setMessage("Loading...");
                     pd.show();
 
+                    // Sends a request and receives a string in JSON formatting
                     StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
                         @Override
-                        public void onResponse(String s) {
+                        public void onResponse(String s) { // String received in the request above
                             if(s.equals("null")){
                                 Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
                             }
                             else{
-                                try {
+                                try { // Creates a JSON object from the string
                                     JSONObject obj = new JSONObject(s);
 
+                                    // Checks if the user exists in the JSON object
                                     if(!obj.has(user)){
                                         Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
                                     }

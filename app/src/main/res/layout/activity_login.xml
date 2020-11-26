@@ -11,6 +11,21 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <!-- General activity overview
+        // This activity is used to Log the user in or navigate them to the register page
+    -->
+
+    <!-- Xml tag overview
+        // hint is used to display a placeholder msg fx an explanation to the user
+
+        // id is used to identify the elements
+        // The ids can be referenced in main java code to interact with the elements data
+
+        // inputType textPassword conceals whatever is typed by the user
+        // maxLines defines the max line value that can be entered
+    -->
+
+    <!-- // Displays text on the application page -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +34,7 @@
         android:gravity="center"
         android:layout_marginBottom="20dp"/>
 
+    <!-- Editable textbox on the application page -->
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,6 +53,7 @@
         android:hint="enter password"
         android:layout_marginBottom="10dp"/>
 
+    <!-- // It's a fucking button -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
