@@ -99,13 +99,13 @@ public class Login extends AppCompatActivity {
                                     // Checks if the user exists in the JSON object
                                     if(!obj.has(user)){
                                         Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
-                                    }
+                                    } // Checks if the users password, if it's correct open the users activity
                                     else if(obj.getJSONObject(user).getString("password").equals(pass)){
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
                                         startActivity(new Intent(Login.this, Users.class));
                                     }
-                                    else {
+                                    else { // If the password is wrong display a message
                                         Toast.makeText(Login.this, "incorrect password", Toast.LENGTH_LONG).show();
                                     }
                                 } catch (JSONException e) {
@@ -116,13 +116,14 @@ public class Login extends AppCompatActivity {
                             pd.dismiss();
                         }
                     },new Response.ErrorListener(){
-                        @Override
+                        @Override // Print request error
                         public void onErrorResponse(VolleyError volleyError) {
                             System.out.println("" + volleyError);
                             pd.dismiss();
                         }
                     });
 
+                    // Queue a new request
                     RequestQueue rQueue = Volley.newRequestQueue(Login.this);
                     rQueue.add(request);
                 }
