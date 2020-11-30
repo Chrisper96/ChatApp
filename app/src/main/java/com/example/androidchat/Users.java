@@ -30,7 +30,8 @@ import java.util.Iterator;
  *
  *   // Users
  *       Together with the activity file, this file holds the functionality for displaying registered users,
- *       but only if the users login credentials be correct.
+ *       from the Firebase Realtime Database and displays them as a list of available users.
+ *       The list that is displayed in the activity file is changed, setting one to gone and one to visible.
  *
  *   // Requests
  *       The login credentials entered by the user will be verified,
