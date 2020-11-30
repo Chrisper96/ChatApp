@@ -34,12 +34,10 @@ import java.util.Iterator;
  *       The list that is displayed in the activity file is changed, setting one to gone and one to visible.
  *
  *   // Requests
- *       The login credentials entered by the user will be verified,
- *       in the firebase realtime database that has been set up.
+ *       Gets the users from the Firebase Realtime Database,
+ *       and add them to a list.
  *       This happens via http requests.
  *       The requests are made to a url provided by firebase using it as a REST endpoint.
- *
- *   If the user should click the text to register they will then be shown the register page instead.
  */
 
 public class Users extends AppCompatActivity {
@@ -78,6 +76,7 @@ public class Users extends AppCompatActivity {
         RequestQueue rQueue = Volley.newRequestQueue(Users.this);
         rQueue.add(request);
 
+        // takes the user to the chat activity if they click on a user.
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -94,6 +93,7 @@ public class Users extends AppCompatActivity {
             Iterator i = obj.keys();
             String key = "";
 
+            // Goes through the keys in the JSON object and add them to a list, if the key is different from the current user.
             while(i.hasNext()){
                 key = i.next().toString();
 
@@ -108,6 +108,7 @@ public class Users extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Changes the displayed list if needed
         if(totalUsers <=1){
             noUsersText.setVisibility(View.VISIBLE);
             usersList.setVisibility(View.GONE);
