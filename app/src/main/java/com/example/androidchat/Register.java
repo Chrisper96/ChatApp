@@ -22,6 +22,24 @@ import com.firebase.client.Firebase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/* General code overview
+ *   This file controls the functionality for the activity_register.xml file.
+ *
+ *   // Register
+ *       Together with the activity file, this file holds the functionality for user registration,
+ *       checking that their entered credentials fit the requirements.
+ *       If the users entered credentials fit the requirements,
+ *       they will then be saved in the database.
+ *
+ *   // Requests
+ *       The login credentials entered by the user will be registered,
+ *       in the firebase realtime database that has been set up.
+ *       This happens via http requests.
+ *       The requests are made to a url provided by firebase using it as a REST endpoint.
+ *
+ *   If the user should click the text to login they will then be shown the login page instead.
+ */
+
 public class Register extends AppCompatActivity {
     EditText username, password;
     Button registerButton;
@@ -77,9 +95,10 @@ public class Register extends AppCompatActivity {
 
                     StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
                         @Override
-                        public void onResponse(String s) {
+                        public void onResponse(String s) { // Creating a reference to the firebase database
                             Firebase reference = new Firebase("https://androidchat-8ae4f.firebaseio.com/users");
 
+                            // If database request response is null create the user
                             if(s.equals("null")) {
                                 reference.child(user).child("password").setValue(pass);
                                 Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
@@ -88,6 +107,7 @@ public class Register extends AppCompatActivity {
                                 try {
                                     JSONObject obj = new JSONObject(s);
 
+                                    // If the user doesn't exist create the user
                                     if (!obj.has(user)) {
                                         reference.child(user).child("password").setValue(pass);
                                         Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();

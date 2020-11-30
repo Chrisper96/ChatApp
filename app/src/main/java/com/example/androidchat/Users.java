@@ -24,6 +24,23 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
+/* General code overview
+ *   This file controls the functionality for the activity_login.xml file.
+ *
+ *   // Users
+ *       Together with the activity file, this file holds the functionality for displaying registered users,
+ *       but only if the users login credentials be correct.
+ *
+ *   // Requests
+ *       The login credentials entered by the user will be verified,
+ *       in the firebase realtime database that has been set up.
+ *       This happens via http requests.
+ *       The requests are made to a url provided by firebase using it as a REST endpoint.
+ *
+ *   If the user should click the text to register they will then be shown the register page instead.
+ */
+
 public class Users extends AppCompatActivity {
     ListView usersList;
     TextView noUsersText;
