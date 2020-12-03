@@ -20,6 +20,20 @@ import com.firebase.client.FirebaseError;
 import java.util.HashMap;
 import java.util.Map;
 
+/* General code overview
+ *   This file controls the functionality for the activity_login.xml file.
+ *
+ *   // Chat
+ *       Together with the activity file, this file holds the functionality for users chat activity,
+ *       showing the users messages in realtime from both ends of the chat.
+ *
+ *
+ *   // Requests
+ *       Creates references to the firebase endpoint required and append maps including key value pairs.
+ *       The chats are updated via eventlisteners linked to the Firebase references,
+ *       keeping the users chats updated on both ends.
+ */
+
 public class Chat extends AppCompatActivity {
     LinearLayout layout;
     ImageView sendButton;
@@ -37,36 +51,41 @@ public class Chat extends AppCompatActivity {
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
 
+        // Creating a reference to the firebase endpoint, with users who are relevant in the chat scenario
         Firebase.setAndroidContext(this);
         reference1 = new Firebase("https://androidchat-8ae4f.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
         reference2 = new Firebase("https://androidchat-8ae4f.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
 
+        // Takes the users message and appends it to the database
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String messageText = messageArea.getText().toString();
 
                 if(!messageText.equals("")){
+                    // Creates a map with key value pairs with the message and the user
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("message", messageText);
                     map.put("user", UserDetails.username);
+                    // Pushes the map with the users who send the message and the users message to both users firebase references
                     reference1.push().setValue(map);
                     reference2.push().setValue(map);
                 }
             }
         });
 
-        reference1.addChildEventListener(new ChildEventListener() {
+        // Checks for new users messages in the database
+        reference1.addChildEventListener(new ChildEventListener() { // Creates an event listener for the firebase reference
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) { // Called when reference1 gets a new message added
                 Map map = dataSnapshot.getValue(Map.class);
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
 
-                if(userName.equals(UserDetails.username)){
+                if(userName.equals(UserDetails.username)){ // If the sender of the message is the current user
                     addMessageBox("You:-\n" + message, 1);
                 }
-                else{
+                else{ // If the sender of the message is the other user
                     addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
                 }
             }
@@ -93,6 +112,7 @@ public class Chat extends AppCompatActivity {
         });
     }
 
+    // Displays the messages between the users
     public void addMessageBox(String message, int type){
         TextView textView = new TextView(Chat.this);
         textView.setText(message);
@@ -100,10 +120,10 @@ public class Chat extends AppCompatActivity {
         lp.setMargins(0, 0, 0, 10);
         textView.setLayoutParams(lp);
 
-        if(type == 1) {
+        if(type == 1) { // Displays current user messages
             textView.setBackgroundResource(R.drawable.rounded_corner1);
         }
-        else{
+        else{ // Displays other users messages
             textView.setBackgroundResource(R.drawable.rounded_corner2);
         }
 
